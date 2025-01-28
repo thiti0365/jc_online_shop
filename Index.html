@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My HTML Page</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://quota.jc.tu.ac.th/images/jc_logo.png" type="image/png">
+    <style>
+      /* Container to center the content (flexbox) */
+      .center-container {
+        display: flex;
+        justify-content: center;  /* Center horizontally */
+        align-items: flex-start;  /* Align items to the top */
+        height: 100vh;            /* Full height of viewport */
+        text-align: center;       /* Center text content */
+      }
+
+      /* Responsive image for larger screens */
+      .responsive-image {
+        max-width: 100vw;  /* Max width to fill viewport width */
+        max-height: 100vh; /* Max height to fill viewport height */
+        width: auto;
+        height: auto;
+        display: block;
+        margin: 0; /* Remove any default margin */
+      }
+
+      /* Media query for mobile devices */
+      @media (max-width: 768px) {
+        .responsive-image {
+          width: 120vw;            /* Increase width to 120% of viewport */
+          height: 100vh;           /* Keep the height to 100% of viewport */
+          object-fit: cover;       /* Crop the image to fit the container */
+          object-position: top center; /* Focus on the top center of the image */
+        }
+      }
+
+      /* For even smaller devices or more cropping */
+      @media (max-width: 480px) {
+        .responsive-image {
+          width: 150vw;            /* Increase width to 150% of viewport to crop more */
+          height: 100vh;           /* Keep the height to 100% of viewport */
+          object-fit: cover;       /* Crop the image more */
+          object-position: top center; /* Focus on the top center */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="link-container" class="center-container">
+      <!-- The link will be displayed here based on detection -->
+    </div>
+    
+    <script>
+    // Function to detect if the user is on an iOS device
+    function isIOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    // Function to detect if the user is using Facebook's in-app browser
+    function isFacebookApp() {
+      return /FBAN|FBAV/i.test(navigator.userAgent);
+    }
+
+    // Function to generate the appropriate link
+    function generateLink() {
+      var linkContainer = document.getElementById('link-container');
+      var link = document.createElement('a');
+      var image = document.createElement('img');
+
+      if (isFacebookApp() && isIOS()) {
+        // If opened from Facebook's in-app browser on iOS
+        link.href = 'x-safari-https://script.google.com/a/macros/tu.ac.th/s/AKfycbxaoKtKlwlUMsAxGgOPIUqQ2usSSLowjHdCFIZgqhwOyWHhMcdgRNGbHVCXAjvQvn89_Q/exec?fbclid=IwY2xjawGBW81leHRuA2FlbQIxMAABHdECaq9rixZtZgvfwaV2L9iShTggX89gCjLHIh8FitvcQ5mbhBO4I3QqMQ_aem_qaiv8lAS75Wqi8JDAy1KaA';
+      } else {
+        // For all other browsers/platforms
+        link.href = 'https://script.google.com/a/macros/tu.ac.th/s/AKfycbxaoKtKlwlUMsAxGgOPIUqQ2usSSLowjHdCFIZgqhwOyWHhMcdgRNGbHVCXAjvQvn89_Q/exec?fbclid=IwY2xjawGBW81leHRuA2FlbQIxMAABHdECaq9rixZtZgvfwaV2L9iShTggX89gCjLHIh8FitvcQ5mbhBO4I3QqMQ_aem_qaiv8lAS75Wqi8JDAy1KaA';
+      }
+
+      // Set the image source to the GIF in the same GitHub repository
+      image.src = './jc-reunion2024-click.gif';  // Use relative path to the GIF file
+      image.alt = 'Click to open';
+      image.className = 'responsive-image';  // Add the responsive class to the image
+
+      link.target = '_blank';  // Open the link in a new tab/window
+      link.appendChild(image);  // Add the image to the link
+      linkContainer.appendChild(link);  // Add the link to the container
+    }
+
+    // Run the function to generate the correct link
+    generateLink();
+    </script>
+  </body>
+</html>
